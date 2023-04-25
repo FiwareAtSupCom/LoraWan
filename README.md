@@ -3,23 +3,17 @@ Deploiement d'un réseau IoT lorawan Multitenant sur le technopole ElGhazala
 # Project Description
 Deployment of a Lorawan Multitenant IoT network on the ElGhazala technopole
 This involves installing 3 gateways connected to the ChirpStack network server.
-For a user to exploit the network simply ask the admin to create a tenant on Chirpstack
-and assign it as admin to that tenant. The admin adds the gateways to each tenant.
-Now the user can create applications and add the end-devices associated with this application.
+For a user to exploit the network, simply he should ask the admin to create a tenant on Chirpstack
+and assign it as admin to that tenant. The admin adds shared gateways to all tenants.
+Now the user can create applications and can add the end-devices associated to his application.
 This project targets all students, PhD students and teachers of Sup'Com as well as professionals in partnership.
-
-Installation des serveurs ChirpStack 
+ 
 Installing ChirpStack Servers 
 # Installation of ChirpStack servers 
 v3:https://www.chirpstack.io/project/guides/debian-ubuntu/
 v4: https://www.chirpstack.io/docs/getting-started/debian-ubuntu.html
 
-# Gateway 
-[link of gateway's Seeeduino](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/)
-[link of gateway’s Seeeduino](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/)
-installation of gateway and registration to TTN https://www.cytron.io/tutorial/lora-gateway-setup-for-rhf0m301-raspberry-pi-with-basic-station
-
-# Technologie LoraWan
+# LoraWan Technology
 The LoRaWAN protocol is a Low Power Wide Area Networking (LPWAN) communication protocol that functions on LoRa. The LoRaWAN specification is open so anyone can set up and operate a LoRa network.
 
 LoRa is a wireless audio frequency technology that operates in a license-free radio frequency spectrum. LoRa is a physical layer protocol that uses spread spectrum modulation and supports long-range communication at the cost of a narrow bandwidth. It uses a narrow band waveform with a central frequency to send data, which makes it robust to interference.
@@ -35,8 +29,6 @@ The network server can exchange events with the client application through integ
 This kit provides all the basic elements you need: a Raspberry Pi 3, a Seeeduino LoRaWAN with GPS and a gateway & local server that allows you to collect and transfer data among all your LoRa nodes.
 https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/
 
-# Testing on local server
-Using the built in network server of the gateway we managed to connect and end device(APB mode) and send some data to the application.
 
 # Testing on local Chirpstack server.
 We've installed chirpstack V4.0 on a Docker container in our pc to test the connectivity.
