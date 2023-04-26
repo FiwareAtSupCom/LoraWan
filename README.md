@@ -52,4 +52,11 @@ For further details about the activation process for both modes you can visit th
 https://www.thethingsnetwork.org/docs/lorawan/end-device-activation/
 
 # Deployment of Chirpstack 4.0 in the Sup'Com server (VPN)
+
+# Using STM32-discovery-B-L072Z-LRWAN1 board as an end device
+1- Download STM32CubeFunctionPack_LORA1_V2.2.0 from ST website which contains all the drivers / middleware / libraries needed to use the Lora module of the card.
+2- Open the example application provided in projects folder(we used stm32 cube ide).
+3- Open "Comissionning" file, we've chosen to use static DEV-EUI mode, we set STATIC_DEVICE_EUI to 1 to enable this mode.
+Then, we've chosen a random LORAWAN_DEVICE_EUI and set it in chirpstack. We created a device with an appKey in chirpstack.
+We take this app key and we assign it to LORAWAN_APP_KEY in the "Comissionning" file.
  
