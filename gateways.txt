@@ -1,0 +1,4 @@
+Gateway1 32.6
+Gatway2 32.13
+
+Chirpstack 33.57:8080
