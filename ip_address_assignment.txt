@@ -4,3 +4,11 @@ Gatway2: 192.168.32.13
 Chirpstackv3: 192.168.33.57:8080
 
 Static ip address pool: 192.168.33.66 - 192.168.33.69
+New gateway1: 192.168.33.66
+New gateway1: 192.168.33.67
+
+mask: 255.255.254.0
+network: 192.168.32.0
+broadcast: 192.168.33.255
+dns: 8.8.8.8
+default-gateway: 192.168.33.254
