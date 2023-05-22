@@ -59,4 +59,7 @@ https://www.thethingsnetwork.org/docs/lorawan/end-device-activation/
 3- Open "Comissionning" file, we've chosen to use static DEV-EUI mode, we set STATIC_DEVICE_EUI to 1 to enable this mode.
 Then, we've chosen a random LORAWAN_DEVICE_EUI and set it in chirpstack. We created a device with an appKey in chirpstack.
 We take this app key and we assign it to LORAWAN_APP_KEY in the "Comissionning" file.
+# Grafana Dashboard
+![image](https://github.com/FiwareAtSupCom/LoraWan/assets/60314904/425d07be-968f-47d8-b79a-bc7717857036)
+
  
