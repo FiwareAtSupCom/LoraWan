@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "336dd947-82ae-4e7f-8f10-b7e7d0edafed",
+		"name": "Fiware Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27404428"
+	},
+	"item": [
+		{
+			"name": "Iot agent about",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.33.69:4041/iot/about",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"33",
+						"69"
+					],
+					"port": "4041",
+					"path": [
+						"iot",
+						"about"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show devices of Iot Agent",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "fiware-service",
+						"value": "smartgondor",
+						"type": "text"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/gardens",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://192.168.33.69:4041/iot/devices",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"33",
+						"69"
+					],
+					"port": "4041",
+					"path": [
+						"iot",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add device to Iot Agent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fiware-service",
+						"value": "smartgondor",
+						"type": "text"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/gardens",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"devices\": [\r\n    {\r\n      \"device_id\": \"dht_001\",\r\n      \"entity_name\": \"DHT_001\",\r\n      \"entity_type\": \"DHT\",\r\n      \"timezone\": \"Europe/Berlin\",\r\n      \"attributes\": [\r\n        {\r\n          \"object_id\": \"rh1\",\r\n          \"name\": \"relative_humidity_1\",\r\n          \"type\": \"Number\"\r\n        },\r\n        {\r\n          \"object_id\": \"t1\",\r\n          \"name\": \"temperature_1\",\r\n          \"type\": \"Number\"\r\n        }\r\n      ],\r\n      \"internal_attributes\": {\r\n        \"lorawan\": {\r\n          \"application_server\": {\r\n            \"host\": \"192.168.33.57\",\r\n            \"username\": \"admin\",\r\n            \"password\": \"admin\",\r\n            \"provider\": \"chirpstack\"\r\n          },\r\n          \"dev_eui\": \"8cf957200004c487\",\r\n          \"app_eui\": \"4569343567897875\",\r\n          \"application_id\": \"6\",\r\n          \"application_key\": \"1CB2FF08BEEE308966E3C0AF5567914E\",\r\n          \"data_model\": \"cayennelpp\"\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.33.69:4041/iot/devices",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"33",
+						"69"
+					],
+					"port": "4041",
+					"path": [
+						"iot",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show entity from Orion context broker",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "fiware-service",
+						"value": "smartgondor",
+						"type": "text"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/gardens",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.33.69:1026/v2/entities/DHT_001",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"33",
+						"69"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"entities",
+						"DHT_001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Quantumleap version",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "fiware-service",
+						"value": "smartgondor",
+						"type": "text"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/gardens",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://192.168.33.69:8668/v2/version",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"33",
+						"69"
+					],
+					"port": "8668",
+					"path": [
+						"v2",
+						"version"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add subscription to quantumleap",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fiware-service",
+						"value": "smartgondor",
+						"type": "text"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/gardens",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://192.168.33.69:8668/v2/subscribe?orionUrl=http://orion:1026/v2&quantumleapUrl=http://quantumleap:8668/v2",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"33",
+						"69"
+					],
+					"port": "8668",
+					"path": [
+						"v2",
+						"subscribe"
+					],
+					"query": [
+						{
+							"key": "orionUrl",
+							"value": "http://orion:1026/v2"
+						},
+						{
+							"key": "quantumleapUrl",
+							"value": "http://quantumleap:8668/v2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show subscriptions to Context brokers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "fiware-service",
+						"value": "smartgondor",
+						"type": "text"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/gardens",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://192.168.33.69:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"33",
+						"69"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show records history from quantumleap",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "fiware-service",
+						"value": "smartgondor",
+						"type": "text"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/gardens",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://192.168.33.69:8668/v2/entities/DHT_001",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"33",
+						"69"
+					],
+					"port": "8668",
+					"path": [
+						"v2",
+						"entities",
+						"DHT_001"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

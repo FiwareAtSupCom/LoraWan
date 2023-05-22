@@ -1,0 +1,5 @@
+1- In the serial monitor (at+id to get all devAddr, DevEui and AppEui)
+2- Create application with App Eui
+3- Configure mote and in the ABP mode enter the DevAddr, DevEui and NwkSKey and AppSkey (default ones)
+
+Now you're ready to test connectivity.

@@ -1,0 +1,18 @@
+
+// Web UIs
+Chirpstack: 	http://192.168.33.57:8080
+Portainer:		https://192.168.33.69:9443
+Cratedb:		http://192.168.33.69:4200
+Grafana:		http://192.168.33.69:3000
+SupCom Server:	https://192.168.33.52:8006
+
+
+// Adresses
+Gateway1:		192.168.33.66
+Gateway1:		192.168.33.67
+Chirpstack:		192.168.33.57
+VM Linux server:	192.168.33.69
+SupCom server:	192.168.33.52
+
+//change size ubunto
+sysctl -w vm.max_map_count=262144
