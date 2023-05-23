@@ -71,8 +71,7 @@ We take this app key and we assign it to LORAWAN_APP_KEY in the "Comissionning" 
 ## Prerequisites
 -   A single machine running a Linux based operating system. 
 -   A single machine running a Windows based operating system for monitoring / administration.
--   Docker version 23.0.5 is used in this tutorial. Detailed installation instructions can be found [here](https://docs.docker.com/install/).
--   Docker Compose version 2.17.3 is used in this tutorial. Detailed installation instructions can be found [here](https://docs.docker.com/compose/install/).
+-   Docker version 23.0.5 and Docker Compose version 2.17.3 is used in this tutorial. Detailed installation instructions can be found [here](https://docs.docker.com/install/).
 -   Arduino IDE. Detailed installation instructions can be found [here](https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE).
 -   Postman. Detailed installation instructions can be found [here](https://www.postman.com/downloads/).
 
@@ -85,7 +84,30 @@ sudo apt-get install git
 ### _Chirpstack v4_ setup
 
 -   To install _Chirpstack v4_ with docker follow the steps in this [link](https://www.chirpstack.io/docs/getting-started/docker.html).
+-   To check whether the installation was successful go to the server ip on port 8080.
+In the following tutoril my server ip address is 192.168.33.69.
 
+### Hardware
+
+-   A seeeduino lorawana gateway kit. For further details on the kit visit this link: `https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/` 
+-   A DHT11 temperatur and humidity sensor.
+[!image](http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png)
+
+
+## Architecture
+
+The tutorial allows the deployment of the following system, comprising a basic FIWARE IoT stack:
+
+![Architecture](https://github.com/Atos-Research-and-Innovation/IoTagent-LoRaWAN/blob/master/docs/img/stm32_ttn_tutorial/stm32_ttn_tutorial_architecture.png)
+
+-   **A LoRaWAN end-node** based on an Seeeduino LoRaWAN development board. In our application, the device will readtemperatur and humidity values from the DHT11 sensor, encode the information using [CayenneLpp data model](https://developers.mydevices.com/cayenne/docs/lora/#lora-cayenne-low-power-payload) and forward the result to **Chirpstack** LoRaWAN stack through the _gateways_.
+-   **The LoRaWAN gateway** plays the role of a concentrator which forwards the messages to the _LoRaWAN network server_, included in \*_Chirpstack v4_ stack.\*
+-   **_Chirpstack v4\* stack** implements the functionalities of the _LoRaWAN network server_ and _LoRaWAN application server_. 
+-   **FIWARE IoT Agent** enables the ingestion of data from _LoRaWAN application servers_ in _NGSI context brokers_, subscribing to appropriate communication channels (i.e., MQTT topics), decoding payloads and translating them to NGSI data model. It relies on a _MongoDB database_ to persist information.
+-   **FIWARE Context Broker** manages large-scale context information abstracting the type of data source and the underlying communication technologies. It relies on a _MongoDB database_ to persist information.
+-   **FIWARE Quantum Leap** subscribes to notifications of new data ingested by _FIWARE Context Brokers_ and stores the historical information in time-series format. It relies on a _CrateDB database_ to persist information.
+-   **Grafana** provides an easy and intuitive mechanism to visualize and explore data by means of fashionable
+    dashboards.
 
 
 
