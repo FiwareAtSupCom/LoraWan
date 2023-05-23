@@ -93,7 +93,7 @@ In the following tutoril my server ip address is 192.168.33.69.
 -   A DHT11 temperatur and humidity sensor.
 ![image](http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png | width=100)
 
-
+![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png =50x50)
 ## Architecture
 
 The tutorial allows the deployment of the following system, comprising a basic FIWARE IoT stack:
