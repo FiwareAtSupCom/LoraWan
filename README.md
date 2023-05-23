@@ -91,9 +91,8 @@ In the following tutoril my server ip address is 192.168.33.69.
 
 -   A seeeduino lorawana gateway kit. For further details on the kit visit this link: `https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/` 
 -   A DHT11 temperatur and humidity sensor.
-![image](http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png | width=100)
+<img src="http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png" width="100">
 
-![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png =50x50)
 ## Architecture
 
 The tutorial allows the deployment of the following system, comprising a basic FIWARE IoT stack:
@@ -169,7 +168,8 @@ sudo reboot
 -   Install the required libraries and seeeduino lorawan board. You can follow this [tutorial](https://wiki.seeedstudio.com/Seeeduino_LoRAWAN/). 
 -   Change the appkey generated in the previous step.
 -   Upload the code to the board and make the wiring as shown in the next figure.
-![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/dht11-schema.png)
+<img src="https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/dht11-schema.png" width="200">
+
 
 
 
