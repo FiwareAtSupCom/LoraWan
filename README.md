@@ -152,24 +152,24 @@ sudo reboot
 ## Adding the gateway to Chirpstack
 -   Go to the web UI of chirpstack following this link: `http://192.168.33.69:8080` and login using "admin" as a username and a password.
 -   Add a new gateway:
-![image](https://github.com/FiwareAtSupCom/LoraWan/images/gateway_1_add.png)
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/gateway_1_add.png)
 -   Verify that the gateway is active in the dashboard. 
-![image](https://github.com/FiwareAtSupCom/LoraWan/images/gateway_1_active.png)
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/gateway_1_active.png)
 
 
 ## Adding Application and device
 -   Add a new device profile and make sure to check OTAA mode support and CayenneLPP as a codec:
-![image](https://github.com/FiwareAtSupCom/LoraWan/images/device_profile_add.png)
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/device_profile_add.png)
 -   Add an application. 
 -   Add a device to the created application using the device profile. For that you will need to generate an Appkey (that you need to keep for the next step)and the DEV EUI which you can get following [Seeeduino AT communication section](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/).
-![image](https://github.com/FiwareAtSupCom/LoraWan/images/device_add.png)
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/device_add.png)
 
 ## End node setup
 -   Open the end node device sketch located in /seeeduino_lorawana_end_device/end_node_cayenneLPP_payload_OTAA.
 -   Install the required libraries and seeeduino lorawan board. You can follow this [tutorial](https://wiki.seeedstudio.com/Seeeduino_LoRAWAN/). 
 -   Change the appkey generated in the previous step.
 -   Upload the code to the board and make the wiring as shown in the next figure.
-![image](https://github.com/FiwareAtSupCom/LoraWan/images/dht11-schema.png)
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/dht11-schema.png)
 
 
 
