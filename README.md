@@ -91,7 +91,7 @@ In the following tutoril my server ip address is 192.168.33.69.
 
 -   A seeeduino lorawana gateway kit. For further details on the kit visit this link: `https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/` 
 -   A DHT11 temperatur and humidity sensor.
-![image](http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png)
+![image](http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png | width=100)
 
 
 ## Architecture
@@ -130,15 +130,14 @@ To configure the gateway for forwarding lorawan packets to the network server, y
 nano /home/rxhf/risinghf/pktfwd/local_conf.json
 ```
 
-You should changethis file like this:
+Change the Server address to your chirpstack server ip address, change serv_port up and down, and keep the Gateway_ID, we will need it later.
 
 ```json
 {
     "gateway_conf": {
         "gateway_ID": "GATEWAY_ID",
         "autoquit_threshold": 5,
-        //"gps_tty_path": "/dev/ttyAMA0",
-        "server_address": "PUT_SERVER_ADDRESS",
+        "server_address": "SERVER_ADDRESS",
         "serv_port_up": 1700,
         "serv_port_down": 1700
     }
@@ -149,5 +148,29 @@ You should changethis file like this:
 ```bash
 sudo reboot
 ```
+
+## Adding the gateway to Chirpstack
+-   Go to the web UI of chirpstack following this link: `http://192.168.33.69:8080` and login using "admin" as a username and a password.
+-   Add a new gateway:
+![image](https://github.com/FiwareAtSupCom/LoraWan/images/gateway_1_add.png)
+-   Verify that the gateway is active in the dashboard. 
+![image](https://github.com/FiwareAtSupCom/LoraWan/images/gateway_1_active.png)
+
+
+## Adding Application and device
+-   Add a new device profile and make sure to check OTAA mode support and CayenneLPP as a codec:
+![image](https://github.com/FiwareAtSupCom/LoraWan/images/device_profile_add.png)
+-   Add an application. 
+-   Add a device to the created application using the device profile. For that you will need to generate an Appkey (that you need to keep for the next step)and the DEV EUI which you can get following [Seeeduino AT communication section](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/).
+![image](https://github.com/FiwareAtSupCom/LoraWan/images/device_add.png)
+
+## End node setup
+-   Open the end node device sketch located in /seeeduino_lorawana_end_device/end_node_cayenneLPP_payload_OTAA.
+-   Install the required libraries and seeeduino lorawan board. You can follow this [tutorial](https://wiki.seeedstudio.com/Seeeduino_LoRAWAN/). 
+-   Change the appkey generated in the previous step.
+-   Upload the code to the board and make the wiring as shown in the next figure.
+![image](https://github.com/FiwareAtSupCom/LoraWan/images/dht11-schema.png)
+
+
 
  

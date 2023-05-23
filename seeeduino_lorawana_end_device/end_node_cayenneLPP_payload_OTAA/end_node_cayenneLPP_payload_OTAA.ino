@@ -16,9 +16,8 @@ void setup(void)
 
   dht.begin();
   
-  //while(!SerialUSB);
   lora.init();
-  lora.setKey(0, 0, "1CB2FF08BEEE308966E3C0AF5567914E");
+  lora.setKey(0, 0, "75B7EBC63DA30B7C9E3BAE8DFFAE94B3");
   
   lora.setDeciveMode(LWOTAA);
   lora.setDataRate(DR0, EU868);
