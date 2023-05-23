@@ -62,4 +62,31 @@ We take this app key and we assign it to LORAWAN_APP_KEY in the "Comissionning" 
 # Grafana Dashboard
 ![image](https://github.com/FiwareAtSupCom/LoraWan/assets/60314904/425d07be-968f-47d8-b79a-bc7717857036)
 
+
+
+
+# Tutorial using _Chirpstack v4_
+// project description
+
+## Prerequisites
+-   A single machine running a Linux based operating system. 
+-   A single machine running a Windows based operating system for monitoring / administration.
+-   Docker version 23.0.5 is used in this tutorial. Detailed installation instructions can be found [here](https://docs.docker.com/install/).
+-   Docker Compose version 2.17.3 is used in this tutorial. Detailed installation instructions can be found [here](https://docs.docker.com/compose/install/).
+-   Arduino IDE. Detailed installation instructions can be found [here](https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE).
+-   Postman. Detailed installation instructions can be found [here](https://www.postman.com/downloads/).
+
+-   Git
+
+```bash
+sudo apt-get install git
+```
+
+### _Chirpstack v4_ setup
+
+-   To install _Chirpstack v4_ with docker follow the steps in this [link](https://www.chirpstack.io/docs/getting-started/docker.html).
+
+
+
+
  

@@ -1,0 +1,92 @@
+version: "3.9"
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - "9443:9443"
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    networks:
+      - LoRaWAN
+    volumes:
+      - mongo_data:/data/db
+
+  orion:
+    image: fiware/orion:3.8.1
+    ports:
+      - "1026:1026"
+    command: -dbhost mongodb -port 1026 -logLevel INFO
+    depends_on:
+      - mongodb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://0.0.0.0:1026/version"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+    networks:
+      - LoRaWAN
+
+  iotagent-lora:
+    depends_on:
+      - mongodb
+      - orion
+    entrypoint: bin/iotagent-lora docker/config-docker.js
+    hostname: iotagent-lora
+    image: ioeari/iotagent-lora
+    ports:
+      - "4041:4041"
+    networks:
+      - LoRaWAN
+
+  cratedb:
+    image: "crate"
+    command: crate -Cauth.host_based.enabled=false
+      -Ccluster.name=democluster -Chttp.cors.enabled=true -Chttp.cors.allow-origin="*"
+    volumes:
+      - crate_data:/data
+    ports:
+      - "4200:4200"
+      - "4300:4300"
+      - "5432:5432"
+    networks:
+      - LoRaWAN
+  
+  grafana:
+    image: "grafana/grafana:6.4.3"
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/data
+    networks:
+      - LoRaWAN
+    
+  quantumleap:
+    image: smartsdk/quantumleap
+    ports:
+      - "8668:8668"
+    depends_on:
+      - mongodb
+      - orion
+      - cratedb
+    environment:
+      - CRATE_HOST=cratedb
+      - USE_GEOCODING=True
+    networks:
+      - LoRaWAN
+
+volumes:
+  portainer_data:
+  mongo_data:
+  grafana_data:
+  crate_data:
+
+networks:
+  LoRaWAN: {}
+
