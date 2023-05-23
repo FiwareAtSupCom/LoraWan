@@ -91,7 +91,8 @@ In the following tutoril my server ip address is 192.168.33.69.
 
 -   A seeeduino lorawana gateway kit. For further details on the kit visit this link: `https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/` 
 -   A DHT11 temperatur and humidity sensor.
-<img src="http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png" width="100">
+<center><img src="http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png" width="150">
+</center>
 
 ## Architecture
 
@@ -168,7 +169,8 @@ sudo reboot
 -   Install the required libraries and seeeduino lorawan board. You can follow this [tutorial](https://wiki.seeedstudio.com/Seeeduino_LoRAWAN/). 
 -   Change the appkey generated in the previous step.
 -   Upload the code to the board and make the wiring as shown in the next figure.
-<img src="https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/dht11-schema.png" width="200">
+<center><img src="https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/dht11-schema.png" width="350">
+</center>
 
 
 
