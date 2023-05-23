@@ -151,15 +151,19 @@ sudo reboot
 -   Go to the web UI of chirpstack following this link: `http://192.168.33.69:8080` and login using "admin" as a username and a password.
 -   Add a new gateway:
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/gateway_1_add.png)
+
 -   Verify that the gateway is active in the dashboard. 
+
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/gateway_1_active.png)
 
 
 ## Adding Application and device
 -   Add a new device profile and make sure to check OTAA mode support and CayenneLPP as a codec:
+
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/device_profile_add.png)
 -   Add an application. 
 -   Add a device to the created application using the device profile. For that you will need to generate an Appkey (that you need to keep for the next step)and the DEV EUI which you can get following [Seeeduino AT communication section](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/).
+
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/device_add.png)
 
 ## End node setup
@@ -167,23 +171,28 @@ sudo reboot
 -   Install the required libraries and seeeduino lorawan board. You can follow this [tutorial](https://wiki.seeedstudio.com/Seeeduino_LoRAWAN/). 
 -   Change the appkey generated in the previous step.
 -   Upload the code to the board and make the wiring as shown in the next figure.
+
 <img src="https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/dht11-schema.png" width="350">
 
 ## Deploy FIWARE Stack
 
 -   We will create the FIWARE stack containers using the following command.
+
 ```bash
 docker compose -f docker/fiware1/docker-compose.yml
 ```
 
 -   For the containers administration and visualisation we will use Portainer web UI  installed using the previous cmd.(You will need to create an account.)
 -   You can open the UI interface using this link: `https://192.168.33.69:9443` 
+
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/portainer_UI_containers.png)
 
 -   Import the Postman workspace located in "postman/fiware1.postman_collection.json" which containes the needed HTTP requests.
 
-### 1.Check Orion version
+### 1.  Check Orion version
+
 -   GET request to:
+
 ```bash
 http://192.168.33.69:1026/version
 ```
@@ -213,6 +222,86 @@ http://192.168.33.69:1026/version
     }
 }
 ```
+
+### 2.  Check IOT Agent about:
+
+-   GET request to:
+
+```bash
+http://192.168.33.69:4041/iot/about
+```
+-   The output should be like this:
+```json
+{
+    "libVersion": "2.21.0",
+    "port": 4041,
+    "baseRoot": "/",
+    "version": "1.2.5"
+}
+```
+
+### 3.  Add device to IOT Agent
+
+-   POST request to:
+
+```bash
+http://192.168.33.69:4041/iot/devices
+```
+-   Add these headers:
+
+```bash
+fiware-service: smartroom
+fiware-servicepath: rooms
+```
+-   And this body(you should change the fields of: dev_eui, app_eui, application_id, application_key. You can get them from the chirpstack application.)
+
+```json
+{
+  "devices": [
+    {
+      "device_id": "dht_001",
+      "entity_name": "DHT_001",
+      "entity_type": "DHT",
+      "timezone": "Europe/Berlin",
+      "attributes": [
+        {
+          "object_id": "rh1",
+          "name": "relative_humidity_1",
+          "type": "Number"
+        },
+        {
+          "object_id": "t1",
+          "name": "temperature_1",
+          "type": "Number"
+        }
+      ],
+      "internal_attributes": {
+        "lorawan": {
+          "application_server": {
+            "host": "192.168.33.69",
+            "username": "admin",
+            "password": "admin",
+            "provider": "chirpstack"
+          },
+          "dev_eui": "8cf957200004c487",
+          "app_eui": "4569343567897875",
+          "application_id": "1b0dc9e9-a328-481b-a6ea-7a66f011ec67",
+          "application_key": "75B7EBC63DA30B7C9E3BAE8DFFAE94B3",
+          "data_model": "cayennelpp"
+        }
+      }
+    }
+  ]
+}
+```
+
+-   The output should be like this with 201 status code
+
+```json
+{}
+```
+
+
 
 
  
