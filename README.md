@@ -91,7 +91,7 @@ In the following tutoril my server ip address is 192.168.33.69.
 
 -   A seeeduino lorawana gateway kit. For further details on the kit visit this link: `https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/` 
 -   A DHT11 temperatur and humidity sensor.
-[!image](http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png)
+![image](http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png)
 
 
 ## Architecture
@@ -101,14 +101,53 @@ The tutorial allows the deployment of the following system, comprising a basic F
 ![Architecture](https://github.com/Atos-Research-and-Innovation/IoTagent-LoRaWAN/blob/master/docs/img/stm32_ttn_tutorial/stm32_ttn_tutorial_architecture.png)
 
 -   **A LoRaWAN end-node** based on an Seeeduino LoRaWAN development board. In our application, the device will readtemperatur and humidity values from the DHT11 sensor, encode the information using [CayenneLpp data model](https://developers.mydevices.com/cayenne/docs/lora/#lora-cayenne-low-power-payload) and forward the result to **Chirpstack** LoRaWAN stack through the _gateways_.
--   **The LoRaWAN gateway** plays the role of a concentrator which forwards the messages to the _LoRaWAN network server_, included in \*_Chirpstack v4_ stack.\*
--   **_Chirpstack v4\* stack** implements the functionalities of the _LoRaWAN network server_ and _LoRaWAN application server_. 
+-   **The LoRaWAN gateway** plays the role of a concentrator which forwards the messages to the _LoRaWAN network server_, included in _Chirpstack v4_ stack.
+-   **Chirpstack v4 stack** implements the functionalities of the _LoRaWAN network server_ and _LoRaWAN application server_. 
 -   **FIWARE IoT Agent** enables the ingestion of data from _LoRaWAN application servers_ in _NGSI context brokers_, subscribing to appropriate communication channels (i.e., MQTT topics), decoding payloads and translating them to NGSI data model. It relies on a _MongoDB database_ to persist information.
 -   **FIWARE Context Broker** manages large-scale context information abstracting the type of data source and the underlying communication technologies. It relies on a _MongoDB database_ to persist information.
 -   **FIWARE Quantum Leap** subscribes to notifications of new data ingested by _FIWARE Context Brokers_ and stores the historical information in time-series format. It relies on a _CrateDB database_ to persist information.
 -   **Grafana** provides an easy and intuitive mechanism to visualize and explore data by means of fashionable
     dashboards.
 
+## Clone the GitHub repository
 
+All the code and files needed to follow this tutorial are included in 
+[FiwareAtSupCom\\LoraWan GitHub repository](https://github.com/FiwareAtSupCom/LoraWan). To clone
+the repository:
+
+```bash
+git clone https://github.com/FiwareAtSupCom/LoraWan.git
+```
+
+## Gateway configuration
+
+To configure the gateway for forwarding lorawan packets to the network server, you need to follow the next steps.
+-   Hardware connection.
+-   Open gateway terminal(over Serial or SSH). you can follow the instructions in the [Seeeduino getting started section](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/).
+-   Configure the gateway to forward the lorawan packets to chirpstack server:
+
+```bash
+nano /home/rxhf/risinghf/pktfwd/local_conf.json
+```
+
+You should changethis file like this:
+
+```json
+{
+    "gateway_conf": {
+        "gateway_ID": "GATEWAY_ID",
+        "autoquit_threshold": 5,
+        //"gps_tty_path": "/dev/ttyAMA0",
+        "server_address": "PUT_SERVER_ADDRESS",
+        "serv_port_up": 1700,
+        "serv_port_down": 1700
+    }
+}
+
+```
+-   To apply the changes reboot the gateway:
+```bash
+sudo reboot
+```
 
  
