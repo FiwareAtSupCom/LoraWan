@@ -91,8 +91,7 @@ In the following tutoril my server ip address is 192.168.33.69.
 
 -   A seeeduino lorawana gateway kit. For further details on the kit visit this link: `https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/` 
 -   A DHT11 temperatur and humidity sensor.
-<center><img src="http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png" width="150">
-</center>
+<img src="http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png" width="150">
 
 ## Architecture
 
@@ -142,7 +141,6 @@ Change the Server address to your chirpstack server ip address, change serv_port
         "serv_port_down": 1700
     }
 }
-
 ```
 -   To apply the changes reboot the gateway:
 ```bash
@@ -169,10 +167,52 @@ sudo reboot
 -   Install the required libraries and seeeduino lorawan board. You can follow this [tutorial](https://wiki.seeedstudio.com/Seeeduino_LoRAWAN/). 
 -   Change the appkey generated in the previous step.
 -   Upload the code to the board and make the wiring as shown in the next figure.
-<center><img src="https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/dht11-schema.png" width="350">
-</center>
+<img src="https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/dht11-schema.png" width="350">
 
+## Deploy FIWARE Stack
 
+-   We will create the FIWARE stack containers using the following command.
+```bash
+docker compose -f docker/fiware1/docker-compose.yml
+```
+
+-   For the containers administration and visualisation we will use Portainer web UI  installed using the previous cmd.(You will need to create an account.)
+-   You can open the UI interface using this link: `https://192.168.33.69:9443` 
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/portainer_UI_containers.png)
+
+-   Import the Postman workspace located in "postman/fiware1.postman_collection.json" which containes the needed HTTP requests.
+
+### 1.Check Orion version
+-   GET request to:
+```bash
+http://192.168.33.69:1026/version
+```
+-   The output should be like this:
+```json
+{
+    "orion": {
+        "version": "3.8.1",
+        "uptime": "0 d, 21 h, 19 m, 10 s",
+        "git_hash": "30622caf67bb4384b73747abb17733e5ad9989a8",
+        "compile_time": "Fri Feb 17 10:20:06 UTC 2023",
+        "compiled_by": "root",
+        "compiled_in": "02a18b9e9dcd",
+        "release_date": "Fri Feb 17 10:20:06 UTC 2023",
+        "machine": "x86_64",
+        "doc": "https://fiware-orion.rtfd.io/en/3.8.1/",
+        "libversions": {
+            "boost": "1_74",
+            "libcurl": "libcurl/7.74.0 OpenSSL/1.1.1n zlib/1.2.12 brotli/1.0.9 libidn2/2.3.0 libpsl/0.21.0 (+libidn2/2.3.0) libssh2/1.9.0 nghttp2/1.43.0 librtmp/2.3",
+            "libmosquitto": "2.0.15",
+            "libmicrohttpd": "0.9.73",
+            "openssl": "1.1",
+            "rapidjson": "1.1.0",
+            "mongoc": "1.23.1",
+            "bson": "1.23.1"
+        }
+    }
+}
+```
 
 
  
