@@ -9,7 +9,7 @@ Now the user can create applications and can add the end-devices associated to h
 This project targets all students, PhD students and teachers of Sup'Com as well as professionals in partnership.
  
 
-# Tutorial using _Chirpstack v4_
+# Tutorial using _Chirpstack v3_
 // project description
 
 ## Prerequisites
