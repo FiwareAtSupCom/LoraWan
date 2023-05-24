@@ -36,12 +36,12 @@ git checkout v3
 docker compose up
 ```
 
--   To check whether the installation was successful go to the server ip on port 8080.
-In the following tutoril my server ip address is 192.168.33.69.
+-   To check whether the installation was successful go to the server IP on port 8080.
+In the following tutorial my server IP address is 192.168.33.69.
 
 ### Hardware
 
--   A seeeduino lorawana gateway kit. For further details on the kit visit this [link](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/)
+-   A seeeduino lorawana gateway kit. For further details on the kit visit this [wiki page](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/)
 -   A DHT11 temperatur and humidity sensor.
 <img src="http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png" width="150">
 
@@ -63,8 +63,8 @@ The tutorial allows the deployment of the following system, comprising a basic F
 ## Clone the GitHub repository
 
 All the code and files needed to follow this tutorial are included in 
-[FiwareAtSupCom\\LoraWan GitHub repository](https://github.com/FiwareAtSupCom/LoraWan). To clone
-the repository:
+[FiwareAtSupCom\\LoraWan GitHub repository](https://github.com/FiwareAtSupCom/LoraWan).
+To clone the repository:
 
 ```bash
 git clone https://github.com/FiwareAtSupCom/LoraWan.git
@@ -74,7 +74,7 @@ git clone https://github.com/FiwareAtSupCom/LoraWan.git
 
 To configure the gateway for forwarding lorawan packets to the network server, you need to follow the next steps.
 -   Hardware connection.
--   Open gateway terminal(over Serial or SSH). you can follow the instructions in the [Seeeduino getting started section](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/).
+-   Open gateway terminal (over Serial or SSH). You can follow the instructions in the [Seeeduino getting started section](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/#getting-started).
 -   Configure the gateway to forward the lorawan packets to chirpstack server:
 
 ```bash
@@ -125,12 +125,12 @@ sudo reboot
 
 -   Add an application. 
 
--   Add a device to the created application using the device profile. For that you will need to generate an Appkey (that you need to keep for the next step)and the DEV EUI which you can get following [Seeeduino AT communication section](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/).
+-   Add a device to the created application using the device profile. For that you will need to generate an Appkey (that you need to keep for the next step)and the DEV EUI which you can get following [Seeeduino AT communication section](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/#step-3-use-rhf2s001-integrated-lorawan-server).
 
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/device_add.png)
 
 ## End node setup
--   Open the end node device sketch located in /seeeduino_lorawana_end_device/end_node_cayenneLPP_payload_OTAA.
+-   Open the end node device sketch located in `seeeduino_lorawana_end_device/end_node_cayenneLPP_payload_OTAA`.
 -   Install the required libraries and seeeduino lorawan board. You can follow this [tutorial](https://wiki.seeedstudio.com/Seeeduino_LoRAWAN/). 
 -   Change the appkey generated in the previous step.
 -   Upload the code to the board and make the wiring as shown in the next figure.
@@ -272,7 +272,7 @@ fiware-servicepath: /rooms
 ```
 
 
-### 4.  show the added device
+### 4.  Show the added device
 
 -   GET request to:
 
@@ -334,7 +334,7 @@ fiware-servicepath: /rooms
 }
 ```
 
-### 5.  show the DHT11 entity from Orion context broker
+### 5.  Show the DHT11 entity from Orion context broker
 
 -   GET request to:
 
