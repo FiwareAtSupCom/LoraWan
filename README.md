@@ -81,9 +81,17 @@ We take this app key and we assign it to LORAWAN_APP_KEY in the "Comissionning" 
 sudo apt-get install git
 ```
 
-### _Chirpstack v4_ setup
+### _Chirpstack v3_ setup
 
--   To install _Chirpstack v4_ with docker follow the steps in this [link](https://www.chirpstack.io/docs/getting-started/docker.html).
+-   To install _Chirpstack v3_ with docker, follow the next steps.
+
+```bash
+git clone https://github.com/chirpstack/chirpstack-docker.git
+cd chirpstack-docker
+git checkout v3
+docker compose up
+```
+
 -   To check whether the installation was successful go to the server ip on port 8080.
 In the following tutoril my server ip address is 192.168.33.69.
 
@@ -149,6 +157,12 @@ sudo reboot
 
 ## Adding the gateway to Chirpstack
 -   Go to the web UI of chirpstack following this link: `http://192.168.33.69:8080` and login using "admin" as a username and a password.
+-   Add a network server:
+
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/network_server_add.png)
+
+-   Add a new service profile.
+
 -   Add a new gateway:
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/gateway_1_add.png)
 
@@ -251,7 +265,7 @@ http://192.168.33.69:4041/iot/devices
 
 ```bash
 fiware-service: smartroom
-fiware-servicepath: rooms
+fiware-servicepath: /rooms
 ```
 -   And this body(you should change the fields of: dev_eui, app_eui, application_id, application_key. You can get them from the chirpstack application.)
 
@@ -285,7 +299,7 @@ fiware-servicepath: rooms
           },
           "dev_eui": "8cf957200004c487",
           "app_eui": "4569343567897875",
-          "application_id": "1b0dc9e9-a328-481b-a6ea-7a66f011ec67",
+          "application_id": "1",
           "application_key": "75B7EBC63DA30B7C9E3BAE8DFFAE94B3",
           "data_model": "cayennelpp"
         }
@@ -302,6 +316,313 @@ fiware-servicepath: rooms
 ```
 
 
+### 4.  show the added device
+
+-   GET request to:
+
+```bash
+http://192.168.33.69:4041/iot/devices
+```
+-   Add these headers:
+
+```bash
+fiware-service: smartroom
+fiware-servicepath: /rooms
+```
 
 
+-   The output should be:
+```json
+{
+    "count": 1,
+    "devices": [
+        {
+            "device_id": "dht_001",
+            "service": "smartroom",
+            "service_path": "/rooms",
+            "entity_name": "DHT_001",
+            "entity_type": "DHT",
+            "attributes": [
+                {
+                    "object_id": "rh1",
+                    "name": "relative_humidity_1",
+                    "type": "Number"
+                },
+                {
+                    "object_id": "t1",
+                    "name": "temperature_1",
+                    "type": "Number"
+                }
+            ],
+            "lazy": [],
+            "commands": [],
+            "static_attributes": [],
+            "internal_attributes": {
+                "lorawan": {
+                    "application_server": {
+                        "host": "192.168.33.69",
+                        "username": "admin",
+                        "password": "admin",
+                        "provider": "chirpstack"
+                    },
+                    "dev_eui": "8cf957200004c487",
+                    "app_eui": "4569343567897875",
+                    "application_id": "1",
+                    "application_key": "75B7EBC63DA30B7C9E3BAE8DFFAE94B3",
+                    "data_model": "cayennelpp"
+                }
+            }
+        }
+    ]
+}
+```
+
+
+### 5.  show the DHT11 entity from Orion context broker
+
+-   GET request to:
+
+```bash
+http://192.168.33.69:1026/v2/entities/DHT_001
+```
+-   Add these headers:
+
+```bash
+fiware-service: smartroom
+fiware-servicepath: /rooms
+```
+
+
+-   The output should be:
+```json
+{
+    "id": "DHT_001",
+    "type": "DHT",
+    "TimeInstant": {
+        "type": "DateTime",
+        "value": "2023-05-24T14:49:26.718Z",
+        "metadata": {}
+    },
+    "relative_humidity_1": {
+        "type": "Number",
+        "value": 62,
+        "metadata": {
+            "TimeInstant": {
+                "type": "DateTime",
+                "value": "2023-05-24T14:49:26.718Z"
+            }
+        }
+    },
+    "temperature_1": {
+        "type": "Number",
+        "value": 26,
+        "metadata": {
+            "TimeInstant": {
+                "type": "DateTime",
+                "value": "2023-05-24T14:49:26.718Z"
+            }
+        }
+    }
+}
+```
+
+
+### 6.  Check Quantumleap version
+
+-   GET request to:
+
+```bash
+http://192.168.33.69:8668/version
+```
+-   The output should be like this:
+```json
+{
+    "version": "0.8.x"
+}
+```
+
+
+### 7.  Add subscription to Orion context broker
+
+-   POST request to:
+
+```bash
+http://192.168.33.69:1026/v2/subscriptions
+```
+-   Add these headers:
+
+```bash
+fiware-service: smartroom
+fiware-servicepath: /rooms
+```
+
+-   And this body:
+
+```json
+{
+  "description": "Notify QuantumLeap of all DHT Sensor changes",
+  "subject": {
+    "entities": [
+      {
+        "idPattern": "DHT*"
+      }
+    ],
+    "condition": {
+      "attrs": [
+        "relative_humidity_1",
+        "temperature_1"
+      ]
+    }
+  },
+  "notification": {
+    "http": {
+      "url": "http://quantumleap:8668/v2/notify"
+    },
+    "attrs": [
+        "relative_humidity_1",
+        "temperature_1"
+    ],
+    "metadata": ["dateCreated", "dateModified"]
+  }
+}
+```
+
+-   This should return an empty response body with a 201 status code 
+
+
+### 8.  Show the created subscription
+
+-   GET request to:
+
+```bash
+http://192.168.33.69:1026/v2/subscriptions
+```
+
+-   Add these headers:
+
+```bash
+fiware-service: smartroom
+fiware-servicepath: /rooms
+```
+
+-   The output should be like this:
+```json
+[
+    {
+        "id": "646e24594282b5b0b902b9ce",
+        "description": "Notify QuantumLeap of all DHT Sensor changes",
+        "status": "active",
+        "subject": {
+            "entities": [
+                {
+                    "idPattern": "DHT*"
+                }
+            ],
+            "condition": {
+                "attrs": [
+                    "relative_humidity_1",
+                    "temperature_1"
+                ]
+            }
+        },
+        "notification": {
+            "timesSent": 1,
+            "lastNotification": "2023-05-24T14:51:06.000Z",
+            "attrs": [
+                "relative_humidity_1",
+                "temperature_1"
+            ],
+            "onlyChangedAttrs": false,
+            "attrsFormat": "normalized",
+            "http": {
+                "url": "http://quantumleap:8668/v2/notify"
+            },
+            "metadata": [
+                "dateCreated",
+                "dateModified"
+            ],
+            "lastSuccess": "2023-05-24T14:51:06.000Z",
+            "lastSuccessCode": 200,
+            "covered": false
+        }
+    }
+]
+```
+
+
+### 9.  Show records history from quantumleap
+
+
+-   GET request to:
+
+```bash
+http://192.168.33.69:8668/v2/entities/DHT_001
+```
+
+-   Add these headers:
+
+```bash
+fiware-service: smartroom
+fiware-servicepath: /rooms
+```
+
+-   The output should be like this:
+```json
+{
+    "attributes": [
+        {
+            "attrName": "TimeInstant",
+            "values": [
+                null,
+                null,
+                null,
+                null,
+                null
+            ]
+        },
+        {
+            "attrName": "relative_humidity_1",
+            "values": [
+                62.0,
+                62.0,
+                62.0,
+                62.0,
+                61.0
+            ]
+        },
+        {
+            "attrName": "temperature_1",
+            "values": [
+                26.0,
+                26.0,
+                26.0,
+                27.0,
+                26.0
+            ]
+        }
+    ],
+    "entityId": "DHT_001",
+    "index": [
+        "2023-05-24T14:50:16.840+00:00",
+        "2023-05-24T14:50:26.865+00:00",
+        "2023-05-24T14:50:36.888+00:00",
+        "2023-05-24T14:50:46.908+00:00",
+        "2023-05-24T14:51:06.962+00:00"
+    ]
+}
+```
  
+## Grafana visualisation
+
+-   Navigate to `http://192.168.33.69:3000` and log in with default credentials which are: `admin / admin`
+-   Add a new data source using the following parameters:
+
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/grafana_datasource_add.png)
+
+-   Import the dashboard located in: `grafana_dashboard` folder.
+
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/grafana_dashboard_import.png)
+
+-   The final result should look like this:
+
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/grafana_dashboard_visualisation.png)

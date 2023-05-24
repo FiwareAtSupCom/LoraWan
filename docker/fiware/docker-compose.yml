@@ -8,7 +8,7 @@ services:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
-
+    
   mongodb:
     image: mongo:4.4
     ports:
@@ -46,7 +46,7 @@ services:
       - LoRaWAN
 
   cratedb:
-    image: "crate"
+    image: "crate:4.8"
     command: crate -Cauth.host_based.enabled=false
       -Ccluster.name=democluster -Chttp.cors.enabled=true -Chttp.cors.allow-origin="*"
     volumes:
@@ -57,7 +57,7 @@ services:
       - "5432:5432"
     networks:
       - LoRaWAN
-  
+
   grafana:
     image: "grafana/grafana:6.4.3"
     ports:
