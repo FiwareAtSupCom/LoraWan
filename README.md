@@ -612,3 +612,17 @@ fiware-servicepath: /rooms
 }
 ```
  
+## Grafana visualisation
+
+-   Navigate to `http://192.168.33.69:3000` and log in with default credentials which are: `admin / admin`
+-   Add a new data source using the following parameters:
+
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/grafana_datasource_add.png)
+
+-   Import the dashboard located in: `grafana_dashboard` folder.
+
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/grafana_dashboard_import.png)
+
+-   The final result should look like this:
+
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/grafana_dashboard_visualisation.png)
