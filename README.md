@@ -132,7 +132,7 @@ sudo reboot
 ## End node setup
 -   Open the end node device sketch located in `seeeduino_lorawana_end_device/end_node_cayenneLPP_payload_OTAA`.
 
-![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/endnode_sketch.png)
+<img src="https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/endnode_sketch.png" width="500">
 
 -   Install the required libraries and seeeduino lorawan board. You can follow this [tutorial](https://wiki.seeedstudio.com/Seeeduino_LoRAWAN/). 
 -   Change the appkey generated in the previous step.
