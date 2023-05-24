@@ -41,7 +41,7 @@ In the following tutoril my server ip address is 192.168.33.69.
 
 ### Hardware
 
--   A seeeduino lorawana gateway kit. For further details on the kit visit this link: `https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/` 
+-   A seeeduino lorawana gateway kit. For further details on the kit visit this [link](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/)
 -   A DHT11 temperatur and humidity sensor.
 <img src="http://www.senith.lk/media/2016/10/humidity%20and%20temperature%20dht11%20module.png" width="150">
 
@@ -52,8 +52,8 @@ The tutorial allows the deployment of the following system, comprising a basic F
 ![Architecture](https://github.com/Atos-Research-and-Innovation/IoTagent-LoRaWAN/blob/master/docs/img/stm32_ttn_tutorial/stm32_ttn_tutorial_architecture.png)
 
 -   **A LoRaWAN end-node** based on an Seeeduino LoRaWAN development board. In our application, the device will readtemperatur and humidity values from the DHT11 sensor, encode the information using [CayenneLpp data model](https://developers.mydevices.com/cayenne/docs/lora/#lora-cayenne-low-power-payload) and forward the result to **Chirpstack** LoRaWAN stack through the _gateways_.
--   **The LoRaWAN gateway** plays the role of a concentrator which forwards the messages to the _LoRaWAN network server_, included in _Chirpstack v4_ stack.
--   **Chirpstack v4 stack** implements the functionalities of the _LoRaWAN network server_ and _LoRaWAN application server_. 
+-   **The LoRaWAN gateway** plays the role of a concentrator which forwards the messages to the _LoRaWAN network server_, included in _Chirpstack v3_ stack.
+-   **Chirpstack v3 stack** implements the functionalities of the _LoRaWAN network server_ and _LoRaWAN application server_. 
 -   **FIWARE IoT Agent** enables the ingestion of data from _LoRaWAN application servers_ in _NGSI context brokers_, subscribing to appropriate communication channels (i.e., MQTT topics), decoding payloads and translating them to NGSI data model. It relies on a _MongoDB database_ to persist information.
 -   **FIWARE Context Broker** manages large-scale context information abstracting the type of data source and the underlying communication technologies. It relies on a _MongoDB database_ to persist information.
 -   **FIWARE Quantum Leap** subscribes to notifications of new data ingested by _FIWARE Context Brokers_ and stores the historical information in time-series format. It relies on a _CrateDB database_ to persist information.
@@ -81,12 +81,12 @@ To configure the gateway for forwarding lorawan packets to the network server, y
 nano /home/rxhf/risinghf/pktfwd/local_conf.json
 ```
 
-Change the Server address to your chirpstack server ip address, change serv_port up and down, and keep the Gateway_ID, we will need it later.
+Change the server_address to your chirpstack server IP address, change serv_port_up and server_port_down to 1700, and keep the gateway_ID, we will need it later.
 
 ```json
 {
     "gateway_conf": {
-        "gateway_ID": "GATEWAY_ID",
+        "gateway_ID": "b827ebfffe0e1174",
         "autoquit_threshold": 5,
         "server_address": "SERVER_ADDRESS",
         "serv_port_up": 1700,
@@ -95,12 +95,14 @@ Change the Server address to your chirpstack server ip address, change serv_port
 }
 ```
 -   To apply the changes reboot the gateway:
+
 ```bash
 sudo reboot
 ```
 
 ## Adding the gateway to Chirpstack
 -   Go to the web UI of chirpstack following this link: `http://192.168.33.69:8080` and login using "admin" as a username and a password.
+
 -   Add a network server:
 
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/network_server_add.png)
@@ -108,6 +110,7 @@ sudo reboot
 -   Add a new service profile.
 
 -   Add a new gateway:
+
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/gateway_1_add.png)
 
 -   Verify that the gateway is active in the dashboard. 
@@ -119,7 +122,9 @@ sudo reboot
 -   Add a new device profile and make sure to check OTAA mode support and CayenneLPP as a codec:
 
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/device_profile_add.png)
+
 -   Add an application. 
+
 -   Add a device to the created application using the device profile. For that you will need to generate an Appkey (that you need to keep for the next step)and the DEV EUI which you can get following [Seeeduino AT communication section](https://wiki.seeedstudio.com/LoRa_LoRaWan_Gateway_Kit/).
 
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/device_add.png)
@@ -141,6 +146,7 @@ docker compose -f docker/fiware1/docker-compose.yml
 ```
 
 -   For the containers administration and visualisation we will use Portainer web UI  installed using the previous cmd.(You will need to create an account.)
+
 -   You can open the UI interface using this link: `https://192.168.33.69:9443` 
 
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/portainer_UI_containers.png)
@@ -154,7 +160,9 @@ docker compose -f docker/fiware1/docker-compose.yml
 ```bash
 http://192.168.33.69:1026/version
 ```
+
 -   The output should be like this:
+
 ```json
 {
     "orion": {
@@ -189,6 +197,7 @@ http://192.168.33.69:1026/version
 http://192.168.33.69:4041/iot/about
 ```
 -   The output should be like this:
+
 ```json
 {
     "libVersion": "2.21.0",
@@ -211,7 +220,9 @@ http://192.168.33.69:4041/iot/devices
 fiware-service: smartroom
 fiware-servicepath: /rooms
 ```
+
 -   And this body(you should change the fields of: dev_eui, app_eui, application_id, application_key. You can get them from the chirpstack application.)
+
 
 ```json
 {
@@ -255,6 +266,7 @@ fiware-servicepath: /rooms
 
 -   The output should be like this with 201 status code
 
+
 ```json
 {}
 ```
@@ -267,6 +279,7 @@ fiware-servicepath: /rooms
 ```bash
 http://192.168.33.69:4041/iot/devices
 ```
+
 -   Add these headers:
 
 ```bash
@@ -274,8 +287,8 @@ fiware-service: smartroom
 fiware-servicepath: /rooms
 ```
 
-
 -   The output should be:
+
 ```json
 {
     "count": 1,
@@ -321,7 +334,6 @@ fiware-servicepath: /rooms
 }
 ```
 
-
 ### 5.  show the DHT11 entity from Orion context broker
 
 -   GET request to:
@@ -329,6 +341,7 @@ fiware-servicepath: /rooms
 ```bash
 http://192.168.33.69:1026/v2/entities/DHT_001
 ```
+
 -   Add these headers:
 
 ```bash
@@ -336,8 +349,8 @@ fiware-service: smartroom
 fiware-servicepath: /rooms
 ```
 
-
 -   The output should be:
+
 ```json
 {
     "id": "DHT_001",
@@ -370,7 +383,6 @@ fiware-servicepath: /rooms
 }
 ```
 
-
 ### 6.  Check Quantumleap version
 
 -   GET request to:
@@ -378,13 +390,14 @@ fiware-servicepath: /rooms
 ```bash
 http://192.168.33.69:8668/version
 ```
+
 -   The output should be like this:
+
 ```json
 {
     "version": "0.8.x"
 }
 ```
-
 
 ### 7.  Add subscription to Orion context broker
 
@@ -393,6 +406,7 @@ http://192.168.33.69:8668/version
 ```bash
 http://192.168.33.69:1026/v2/subscriptions
 ```
+
 -   Add these headers:
 
 ```bash
@@ -450,6 +464,7 @@ fiware-servicepath: /rooms
 ```
 
 -   The output should be like this:
+
 ```json
 [
     {
@@ -493,9 +508,7 @@ fiware-servicepath: /rooms
 ]
 ```
 
-
 ### 9.  Show records history from quantumleap
-
 
 -   GET request to:
 
@@ -511,6 +524,7 @@ fiware-servicepath: /rooms
 ```
 
 -   The output should be like this:
+
 ```json
 {
     "attributes": [
@@ -559,6 +573,7 @@ fiware-servicepath: /rooms
 ## Grafana visualisation
 
 -   Navigate to `http://192.168.33.69:3000` and log in with default credentials which are: `admin / admin`
+
 -   Add a new data source using the following parameters:
 
 ![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/grafana_datasource_add.png)
