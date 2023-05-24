@@ -73,9 +73,9 @@ void loop(void)
 void getSensorData(){
     lpp.reset();
     int humidity = dht.readHumidity();
-    lpp.addRelativeHumidity(3, humidity);
+    lpp.addRelativeHumidity(1, humidity);
     int temp = dht.readTemperature();
-    lpp.addTemperature(4, temp);
+    lpp.addTemperature(1, temp);
 
 
     SerialUSB.print("Temp: ");
