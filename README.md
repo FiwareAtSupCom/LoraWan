@@ -142,7 +142,7 @@ sudo reboot
 -   We will create the FIWARE stack containers using the following command.
 
 ```bash
-docker compose -f docker/fiware1/docker-compose.yml
+docker compose -f docker/fiware/docker-compose.yml
 ```
 
 -   For the containers administration and visualisation we will use Portainer web UI  installed using the previous cmd.(You will need to create an account.)
