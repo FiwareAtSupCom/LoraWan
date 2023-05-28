@@ -49,7 +49,7 @@ In the following tutorial my server IP address is 192.168.33.69.
 
 The tutorial allows the deployment of the following system, comprising a basic FIWARE IoT stack:
 
-![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/architecture.png)
+![image](https://raw.githubusercontent.com/FiwareAtSupCom/LoraWan/main/images/lorawan_architecture.png)
 
 -   **A LoRaWAN end-node** based on an Seeeduino LoRaWAN development board. In our application, the device will readtemperatur and humidity values from the DHT11 sensor, encode the information using [CayenneLpp data model](https://developers.mydevices.com/cayenne/docs/lora/#lora-cayenne-low-power-payload) and forward the result to **Chirpstack** LoRaWAN stack through the _gateways_.
 -   **The LoRaWAN gateway** plays the role of a concentrator which forwards the messages to the _LoRaWAN network server_, included in _Chirpstack v3_ stack.
