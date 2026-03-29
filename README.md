@@ -10,7 +10,6 @@ This project targets all students, PhD students and teachers of Sup'Com as well 
  
 
 # Tutorial using _Chirpstack v3_
-// project description
 
 ## Prerequisites
 -   A single machine running a Linux based operating system. 
